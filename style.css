@@ -1,0 +1,333 @@
+:root {
+    --verde-escuro: #2d5a27;
+    --verde-claro: #a8dadc;
+    --terra: #4b3621;
+    --sucesso: #4caf50;
+    --bloqueado: #94a3b8;
+    --ceu: #87CEEB;
+    --perigo: #ef4444;
+    --perigo-hover: #dc2626;
+    --laranja-agro: #f97316;
+    --laranja-agro-hover: #ea580c;
+    --azul-menu: #0284c7;
+    --azul-menu-hover: #0369a1;
+}
+
+/* Estilos da Tela Inicial Decorada */
+#tela-inicial {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, var(--ceu) 0%, #fff 100%);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    z-index: 100; text-align: center;
+    overflow-y: auto; padding: 20px 0; box-sizing: border-box;
+}
+
+/* Montes Verdes */
+.monte {
+    position: absolute;
+    bottom: -50px;
+    border-radius: 50% 50% 0 0;
+    z-index: 1;
+}
+.monte-1 { width: 600px; height: 300px; background: #2d5a27; left: -100px; opacity: 0.8; }
+.monte-2 { width: 800px; height: 400px; background: #3d7a36; right: -150px; bottom: -100px; }
+.monte-3 { width: 500px; height: 250px; background: #4caf50; left: 20%; bottom: -80px; }
+
+/* Nuvens Animadas */
+.nuvem {
+    position: absolute;
+    background: white;
+    width: 100px; height: 40px;
+    border-radius: 50px;
+    opacity: 0.8;
+    animation: moverNuvem 20s linear infinite;
+}
+.nuvem::before, .nuvem::after {
+    content: ''; position: absolute; background: white; border-radius: 50%;
+}
+.nuvem::before { width: 50px; height: 50px; top: -20px; left: 15px; }
+.nuvem::after { width: 40px; height: 40px; top: -15px; left: 45px; }
+
+@keyframes moverNuvem {
+    from { transform: translateX(-200px); }
+    to { transform: translateX(calc(100vw + 200px)); }
+}
+
+.conteudo-inicial {
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 30px;
+    border-radius: 30px;
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+#tela-inicial h1 { font-size: 3rem; color: var(--verde-escuro); margin: 0; text-shadow: 2px 2px white; }
+#tela-inicial p { font-weight: bold; color: #1e3a1a; margin-bottom: 5px; }
+
+.btn-jogar {
+    padding: 15px 40px; font-size: 1.6rem;
+    background-color: var(--sucesso); color: white;
+    border: 4px solid white; border-radius: 50px; cursor: pointer;
+    transition: all 0.3s; box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    font-weight: bold; width: 100%; max-width: 280px;
+}
+.btn-jogar:hover { transform: scale(1.05); background-color: var(--verde-escuro); }
+
+.btn-curiosidade {
+    padding: 10px 25px; font-size: 1.1rem;
+    background-color: var(--laranja-agro); color: white;
+    border: 3px solid white; border-radius: 50px; cursor: pointer;
+    transition: all 0.3s; box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    font-weight: bold; width: 100%; max-width: 240px;
+}
+.btn-curiosidade:hover { transform: scale(1.05); background-color: var(--laranja-agro-hover); }
+
+/* Container de gerenciamento de Saves */
+.secao-saves {
+    width: 100%;
+    margin-top: 10px;
+    border-top: 2px solid rgba(0,0,0,0.1);
+    padding-top: 15px;
+}
+.secao-saves h3 { margin: 0 0 10px 0; color: var(--verde-escuro); font-size: 1.2rem; }
+
+.slot-save {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    border: 2px solid #cbd5e1;
+    font-size: 0.9rem;
+}
+.slot-info { text-align: left; flex-grow: 1; color: #334155; }
+.slot-info strong { color: var(--verde-escuro); }
+.slot-acoes { display: flex; gap: 5px; }
+
+.btn-slot-carregar { background: var(--sucesso); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
+.btn-slot-salvar { background: var(--azul-menu); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
+.btn-slot-deletar { background: var(--perigo); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
+.btn-slot-deletar:hover { background: var(--perigo-hover); }
+
+/* Modais gerais */
+.modal-curiosidade {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 200;
+    justify-content: center; align-items: center;
+}
+.modal-conteudo {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    border: 4px solid var(--laranja-agro);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease;
+}
+.modal-conteudo h2 { color: var(--laranja-agro); margin-top: 0; }
+
+.modal-botoes { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+.resposta-box {
+    margin-top: 15px;
+    padding: 15px;
+    background: #fef3c7;
+    border-left: 5px solid var(--laranja-agro);
+    border-radius: 5px;
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #78350f;
+}
+
+/* Estilos do Jogo */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0fdf4; display: flex;
+    flex-direction: column; align-items: center;
+    color: #333; margin: 0;
+    min-height: 100vh;
+}
+
+#status-bar {
+    background: white; padding: 20px;
+    border-bottom: 4px solid var(--verde-escuro);
+    width: 100%; display: flex; justify-content: space-around;
+    align-items: center; position: sticky; top: 0; z-index: 10;
+    box-sizing: border-box;
+}
+
+.stat-box { text-align: center; font-weight: bold; }
+
+.btn-navegacao {
+    background-color: var(--azul-menu);
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: background 0.2s;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-navegacao:hover {
+    background-color: var(--azul-menu-hover);
+}
+
+.btn-reiniciar {
+    background-color: var(--perigo);
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: background 0.2s;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.btn-reiniciar:hover { background-color: var(--perigo-hover); }
+
+.botoes-acoes {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Contador de Plantas no Canto */
+#contador-canto {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: white;
+    padding: 15px;
+    border: 3px solid var(--verde-escuro);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    font-weight: bold;
+    z-index: 9;
+    min-width: 150px;
+}
+#contador-canto h4 { margin: 0 0 8px 0; color: var(--verde-escuro); border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+.linha-inventario { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9rem;}
+
+/* Telas Principais do Jogo */
+.tela-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#jardim {
+    display: grid;
+    grid-template-columns: repeat(5, 120px);
+    gap: 25px; margin: 40px 0; padding: 20px;
+    background: #cbd5e1; border-radius: 15px;
+    border: 8px solid #94a3b8;
+}
+
+.container-vaso { position: relative; width: 120px; }
+
+.vaso {
+    width: 120px; height: 120px;
+    background: var(--terra); border-radius: 10px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    cursor: pointer; font-size: 2.5rem; transition: transform 0.2s;
+    position: relative; box-shadow: inset 0 -10px rgba(0,0,0,0.2);
+}
+
+.vaso.bloqueado {
+    background: var(--bloqueado);
+    filter: grayscale(0.5);
+    opacity: 0.9;
+}
+
+.preco-desbloqueio {
+    font-size: 0.75rem;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.vaso:hover { transform: scale(1.05); }
+
+.progresso-bg {
+    width: 100%; height: 8px; background: #cbd5e1;
+    border-radius: 4px; position: absolute; top: -15px;
+    display: none; overflow: hidden;
+}
+
+.progresso-fill { height: 100%; width: 0%; background: var(--sucesso); transition: width linear; }
+
+#loja {
+    background: white; padding: 20px; border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-width: 550px; margin-bottom: 40px; border: 2px solid var(--verde-escuro);
+    width: 90%; box-sizing: border-box;
+}
+
+.container-item { margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #eee; }
+.item-loja { display: flex; justify-content: space-between; align-items: center; }
+.descricao-item { font-size: 0.85rem; color: #555; margin-top: 5px; }
+
+button {
+    padding: 8px 15px; background: var(--verde-escuro);
+    color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;
+}
+
+.dica { font-size: 0.9rem; color: #1e3a1a; font-style: italic; margin-top: 10px; background: #dcfce7; padding: 10px; border-radius: 8px; }
+
+/* Estilos Exclusivos da Cidade */
+#cenario-cidade {
+    width: 80%; max-width: 800px; height: 400px;
+    margin: 35px 0; border-radius: 20px;
+    position: relative; overflow: hidden;
+    border: 6px solid #475569;
+    transition: background 1s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+#smog {
+    position: absolute; width: 100%; height: 100%;
+    background: rgba(100, 100, 100, 0.6);
+    pointer-events: none; transition: all 1s ease; z-index: 5;
+}
+
+.predios {
+    position: absolute; bottom: 0; width: 100%;
+    display: flex; justify-content: space-around; align-items: flex-end;
+    padding: 0 20px; box-sizing: border-box; z-index: 2;
+}
+
+.painel-cidade {
+    background: white; padding: 15px 30px; border-radius: 12px;
+    border: 2px solid #475569; text-align: center; max-width: 600px;
+}
+
+#status-cidade-texto { font-weight: bold; font-size: 1.2rem; color: #1e293b; margin-top: 5px;}

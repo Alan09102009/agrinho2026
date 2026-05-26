@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Jardim: Sustentabilidade</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="tela-inicial">
+        <div class="nuvem" style="top: 10%; animation-delay: 0s;"></div>
+        <div class="nuvem" style="top: 25%; animation-delay: -5s;"></div>
+        <div class="nuvem" style="top: 15%; animation-delay: -12s;"></div>
+         
+        <div class="monte monte-1"></div>
+        <div class="monte monte-2"></div>
+        <div class="monte monte-3"></div>
+
+        <div class="conteudo-inicial">
+            <h1>Recanto Verde</h1>
+            <p>Semeie o futuro, colha sustentabilidade</p>
+            <button class="btn-jogar" onclick="iniciarJogo()">NOVO JOGO</button>
+            <button class="btn-curiosidade" onclick="abrirJanelaCuriosidade()">Uma curiosidade 🌾</button>
+            
+            <div class="secao-saves">
+                <h3>Carregar Progresso</h3>
+                <div id="lista-saves-inicial"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-curiosidade" class="modal-curiosidade">
+        <div class="modal-conteudo">
+            <h2>Fatos e Curiosidades do Agro! 🌾</h2>
+            <p>Descubra as incríveis tecnologias e práticas sustentáveis do campo!</p>
+            
+            <div id="resposta-agro" class="resposta-box"></div>
+            
+            <div class="modal-botoes">
+                <button style="background-color: var(--laranja-agro);" onclick="gerarNovaCuriosidade()">Ver Outra Fato</button>
+                <button style="background-color: var(--bloqueado);" onclick="fecharJanelaCuriosidade()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-menu-salvar" class="modal-curiosidade">
+        <div class="modal-conteudo" style="border-color: var(--azul-menu);">
+            <h2 style="color: var(--azul-menu);">Painel do Jogo ⚙️</h2>
+            <p>Gerencie seus arquivos salvos ou volte ao menu principal.</p>
+            
+            <div style="margin: 15px 0; max-height: 250px; overflow-y: auto;">
+                <div id="lista-saves-gameplay"></div>
+            </div>
+
+            <div class="modal-botoes" style="flex-direction: column; gap: 8px;">
+                <button style="background-color: #64748b; width: 100%; padding: 12px;" onclick="voltarParaMenuPrincipal()">Voltar à Tela Inicial (Menu)</button>
+                <button style="background-color: var(--bloqueado); width: 100%; padding: 10px;" onclick="fecharMenuSalvar()">Fechar Painel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="status-bar">
+        <div class="stat-box">Dinheiro: <br><span id="dinheiro">R$ 48</span></div>
+        <div class="stat-box">Impacto Ambiental: <br><span id="eco-points">0</span> CO₂ reduzido</div>
+        <div class="botoes-acoes">
+            <button id="btn-ir-cidade" class="btn-navegacao" onclick="mudarTela('cidade')">Visitar Cidade 🏙️</button>
+            <button id="btn-ir-jardim" class="btn-navegacao" style="display:none; background-color: var(--sucesso);" onclick="mudarTela('jardim')">Voltar ao Jardim 🌱</button>
+            <button class="btn-navegacao" style="background-color: #475569;" onclick="abrirMenuSalvar()" title="Salvar/Carregar Opções">⚙️ Opções</button>
+            <button class="btn-reiniciar" onclick="reiniciarJogo()" title="Reiniciar do Início">🗑️ Resetar</button>
+        </div>
+    </div>
+
+    <div id="contador-canto">
+        <h4>Sementes na Bolsa</h4>
+        <div class="linha-inventario">🌻 Girassol: <span id="qtd-girassol">0</span></div>
+        <div class="linha-inventario">🌽 Milho: <span id="qtd-milho">0</span></div>
+        <div class="linha-inventario">🌳 Árvore: <span id="qtd-arvore">0</span></div>
+        <div class="linha-inventario" style="color: #b45309;">✨ Fertilizante: <span id="qtd-fertilizante">0</span></div>
+    </div>
+
+    <div id="tela-jardim" class="tela-conteudo">
+        <h1>Meu Eco-Jardim 🌱</h1>
+        <p>Clique em um lote vazio para aplicar fertilizante, ou compre sementes para cultivar!</p>
+
+        <div id="jardim"></div>
+
+        <div id="loja">
+            <h3>Loja Sustentável</h3>
+             
+            <div class="container-item">
+                <div class="item-loja">
+                    <span>🌻 Girassol (R$10 | 20s)</span>
+                    <button onclick="comprarSemente('girassol', 10, 1, 25, '🌻', 20000)">Comprar</button>
+                </div>
+                <div class="descricao-item">Gera R$ 25 de lucro. Reduz 1 CO₂. Atrai polinizadores.</div>
+            </div>
+
+            <div class="container-item">
+                <div class="item-loja">
+                    <span>🌽 Milho (R$15 | 24s)</span>
+                    <button onclick="comprarSemente('milho', 15, 5, 33, '🌽', 24000)">Comprar</button>
+                </div>
+                <div class="descricao-item">Gera R$ 33 de lucro. Reduz 5 CO₂. Rápido e nutritivo!</div>
+            </div>
+
+            <div class="container-item">
+                <div class="item-loja">
+                    <span>🌳 Árvore Nativa (R$50 | 35s)</span>
+                    <button onclick="comprarSemente('árvore', 50, 10, 62, '🌳', 35000)">Comprar</button>
+                </div>
+                <div class="descricao-item">Gera R$ 62 de lucro. Reduz 10 CO₂. Grande impacto!</div>
+            </div>
+
+            <div class="container-item">
+                <div class="item-loja">
+                    <span style="color: #b45309; font-weight: bold;">🧪 Fertilizante Orgânico (R$11)</span>
+                    <button style="background-color: #b45309;" onclick="comprarFertilizante()">Comprar</button>
+                </div>
+                <div class="descricao-item">Use na terra antes de plantar para acelerar o crescimento em 10 segundos!</div>
+            </div>
+
+            <div class="dica" id="dica-texto">Dica: Junte R$ 115 para expandir seu terreno!</div>
+        </div>
+    </div>
+
+    <div id="tela-cidade" class="tela-conteudo" style="display: none;">
+        <h1>Situação da Cidade Atual</h1>
+        <p>O ar e o ambiente mudam conforme você planta e acumula pontos ecológicos.</p>
+
+        <div id="cenario-cidade">
+            <div id="smog"></div>
+            <div class="predios">
+                <span id="p-esq" style="font-size: 7rem; margin-bottom: -10px;">🏭💨</span>
+                <span id="p-meio" style="font-size: 9rem;">🏢</span>
+                <span id="p-dir" style="font-size: 6rem;">🏠</span>
+            </div>
+        </div>
+
+        <div class="painel-cidade">
+            <h3>Diagnóstico Ambiental</h3>
+            <div id="status-cidade-texto">A cidade está altamente sufocada pela poluição das indústrias.</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
